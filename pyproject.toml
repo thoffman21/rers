@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "rers"
+version = "0.1.0"
+description = "Recursive Elo Rating System, for use with NCAA FBS football"
+authors = ["Tyler Hoffman <tylerhoffman2020@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
