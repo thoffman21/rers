@@ -11,6 +11,7 @@ env:
   CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
 jobs:
   test:
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
