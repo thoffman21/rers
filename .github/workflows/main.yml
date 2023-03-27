@@ -7,8 +7,11 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
 jobs:
   test:
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -67,6 +70,9 @@ jobs:
       # they'll be installed and working.
       - run: poetry install --no-interaction
 
+      # Write the CFBD API to the .env
+      - run: echo "CFBD_API_KEY='${{secrets.CFBD_API_KEY}}'" > .env
+
       # And finally run tests. I'm using pytest and all my pytest config is in my `pyproject.toml`
-      # so this line is super-simple. But it could be as complex as you need.
+      # so this line is super-simple. But it could be as complex as you need
       - run: poetry run pytest
