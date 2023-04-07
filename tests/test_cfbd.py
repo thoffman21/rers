@@ -5,18 +5,21 @@ that RERS is based on
 
 import cfbd
 from rers import get_cfbd
+import pytest
 
 
 def test_get_cfbd():
     cfbd.GamesApi(get_cfbd.configure_cfbd()).get_games(year=2022, season_type="regular")
 
 
-def test_cfbd_teams():
+@pytest.mark.parametrize("year,n_fbs_teams", [(2023, 131), (2022, 131), (2021, 130)])
+def test_get_cfbd_teams(year, n_fbs_teams):
     """
-    Check each team (both FBS and non-FBS) for valid data
+    Check each team (both FBS and non-FBS) for valid data, assert that the number
+    of FBS teams returned matches expectation
     """
     teams_api = cfbd.TeamsApi(get_cfbd.configure_cfbd())
-    fbs_teams = teams_api.get_fbs_teams(year=2022)
+    fbs_teams = teams_api.get_fbs_teams(year=year)
     all_teams = teams_api.get_teams()
 
     bad_fbs_teams = []
@@ -33,10 +36,4 @@ def test_cfbd_teams():
         ):
             bad_all_teams.append(team)
 
-    print(
-        f"There are {len(bad_fbs_teams)} bad FBS teams \
-            and {len(bad_all_teams)} bad total teams"
-    )
-
-
-test_cfbd_teams()
+    assert len(fbs_teams) == n_fbs_teams

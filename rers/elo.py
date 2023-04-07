@@ -1,6 +1,6 @@
 """
 Functions for handling the core Elo rating calculations,
-of how actual outcomes are determined
+or how actual outcomes are determined
 """
 
 
