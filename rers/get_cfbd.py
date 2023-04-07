@@ -1,4 +1,5 @@
 import os
+import random
 
 import cfbd
 from dotenv import load_dotenv
@@ -30,3 +31,11 @@ def get_teams(
         return cfbd.TeamsApi(cfbd_api_client).get_fbs_teams(year=year)
     else:
         return cfbd.TeamsApi(cfbd_api_client).get_teams(year=year)
+
+
+def get_random_team(
+    year: int = 2023, fbs_only: bool = True, cfbd_api_client: cfbd.ApiClient = None
+):
+    """Return a random team from CFBD, intended primarily for testing"""
+    teams = get_teams(year, fbs_only, cfbd_api_client)
+    return teams[random.randint(0, len(teams) - 1)]
